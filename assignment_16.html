@@ -1,0 +1,56 @@
+<!--1) B is the only acceptable format. The keys and strings all have
+to be in double quotes and the rest of the options do not follow the rules. -->
+
+<!-- 2) A is the correct JSON. B is incoreect because there is no key for the
+list of animal objects and C has the same problem plus the use of square 
+bracket is not correct-->
+
+<!DOCTYPE html>
+<html>
+   <head>
+      <title>Fetch Planets</title>
+      <script>
+         window.addEventListener("load", function(){
+            // TODO: fetch planets JSON
+            const fetchPromise = fetch("https://handlers.education.launchcode.org/static/planets.json");
+            fetchPromise.then(response =>{
+               // console.log(response);
+               const jsonPromise = response.json()
+               jsonPromise.then(json =>{
+                  const destination = document.getElementById("destination");
+                  let index = 0; 
+                  destination.addEventListener("click",function(){
+                     index += 1
+                     if (index >= json.length){
+                        index = 0 
+                     }
+                     destination.innerHTML = `
+                        <div>
+                           <h3>Planet ${json[index].name}</h3>
+                           <img src=${json[index].image} height=250></img>
+                        </div>
+                     `;
+                  })
+
+                  // I see an array length of 6 
+                  // const destination = document.getElementById("destination");
+                  // destination.innerHTML = `<h3>Planet ${json[1].name}</h3>`;
+               })
+            })
+            // JSON isn't define so we know below codes won't work. 
+            // Also we can see that the error appears before the console
+            // print out of the json 
+            // const destination = document.getElementById("destination");
+            // destination.innerHTML = `<h3>Planet ${json[1].name}</h3>`;
+
+
+         });
+      </script>
+   </head>
+   <body>
+      <h1>Destination</h1>
+      <div id="destination">
+         <h3>Planet</h3>
+      </div>
+   </body>
+</html>
